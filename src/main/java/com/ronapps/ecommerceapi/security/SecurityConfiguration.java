@@ -12,12 +12,10 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(request -> request
-                        .requestMatchers("/user/login")
-                        .hasRole("CUSTOMER"))
+                        .requestMatchers("/user/login/**")
+                        .hasRole("ROLE_USER"))
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());
         return http.build();
     }
-
-
 }

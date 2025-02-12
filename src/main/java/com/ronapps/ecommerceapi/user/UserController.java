@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping("/create")
     public User createUser(@RequestBody User user) {
-        // TODO: Add the user into the database
+        userService.registerNewUser(user.getUsername(), user.getPassword());
         return user;
     }
 
@@ -30,5 +30,4 @@ public class UserController {
         // TODO: Search user database to find an entity with the correct user and password
         return "Login successful.";
     }
-
 }
