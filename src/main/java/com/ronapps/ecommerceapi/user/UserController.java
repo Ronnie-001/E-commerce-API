@@ -1,6 +1,7 @@
 package com.ronapps.ecommerceapi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,6 +29,13 @@ public class UserController {
     @GetMapping("/login")
     public String userLogin(String username, String password) {
         // TODO: Search user database to find an entity with the correct user and password
+        // TODO: Also need to authenticate user login
         return "Login successful.";
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/basket")
+    public String addToBasket() {
+
     }
 }

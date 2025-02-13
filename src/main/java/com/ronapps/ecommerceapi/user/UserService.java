@@ -21,4 +21,11 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void registerNewAdmin(String username, String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.addRole("ROLE_ADMIN");
+        userRepository.save(user);
+    }
 }

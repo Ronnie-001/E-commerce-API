@@ -10,5 +10,4 @@ public class UserConfig {
     UserService userService(UserRepository userRepository) {
         return new UserService(userRepository);
     }
-
 }
