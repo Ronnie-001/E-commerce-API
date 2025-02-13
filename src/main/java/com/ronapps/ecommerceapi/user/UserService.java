@@ -17,7 +17,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        user.addRole("ROLE_USER");
+        user.addRole("USER");
         userRepository.save(user);
     }
 
@@ -25,7 +25,7 @@ public class UserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        user.addRole("ROLE_ADMIN");
+        user.addRole("ADMIN");
         userRepository.save(user);
     }
 }

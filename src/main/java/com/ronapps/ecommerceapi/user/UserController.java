@@ -1,7 +1,6 @@
 package com.ronapps.ecommerceapi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,9 +32,9 @@ public class UserController {
         return "Login successful.";
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/basket")
-    public String addToBasket() {
-
-    }
+//    @PreAuthorize("hasRole('ROLE_USER')")
+//    @GetMapping("/basket")
+//    public String addToBasket() {
+//
+//    }
 }
