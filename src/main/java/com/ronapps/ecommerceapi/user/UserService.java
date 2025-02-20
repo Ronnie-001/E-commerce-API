@@ -13,19 +13,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+
+    // TODO: Pass UserDTO Objectas param instead
     public void registerNewUser(String username, String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.addRole("USER");
-        userRepository.save(user);
-    }
-
-    public void registerNewAdmin(String username, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.addRole("ADMIN");
         userRepository.save(user);
     }
 }

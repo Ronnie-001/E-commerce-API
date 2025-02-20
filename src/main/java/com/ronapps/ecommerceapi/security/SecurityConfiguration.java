@@ -13,8 +13,9 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request -> request
+        http.authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user").permitAll()
+                        .requestMatchers("/user/create").permitAll()
                         .requestMatchers("/user/basket/**").hasRole("USER"))
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());

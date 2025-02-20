@@ -1,7 +1,7 @@
 package com.ronapps.ecommerceapi.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,6 +9,7 @@ import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 @Setter
 @ToString
 public class User implements UserDetails {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +32,7 @@ public class User implements UserDetails {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @Column(name = "USER_ROLES", nullable = false)
+    @Column(name = "USER_ROLES")
     @ElementCollection
     private List<String> roles;
 

@@ -18,7 +18,8 @@ public class UserController {
     public String greeting() {
         return "client needs to create a user first to purchase products";
     }
-
+    
+    // TODO: Edit so that it makes use of UserDTO instead for registering new users
     @PostMapping("/create")
     public User createUser(@RequestBody User user) {
         userService.registerNewUser(user.getUsername(), user.getPassword());
