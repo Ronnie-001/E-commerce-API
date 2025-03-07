@@ -1,6 +1,5 @@
 package com.ronapps.ecommerceapi.user;
 
-
 public class UserMapper {
 
     public static User toEntity(UserDTO userDTO) {
@@ -27,6 +26,4 @@ public class UserMapper {
 
         return newUserDto;
     }
-
-
 }

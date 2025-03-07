@@ -1,53 +1,68 @@
 package com.ronapps.ecommerceapi.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.*; 
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.ronapps.ecommerceapi.products.Product;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(schema = "customers")
-@Getter
-@Setter
-@ToString
+@Table(schema = "users")
 public class User implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "USERNAME", nullable = false,  unique = true)
+    @Column(name = "username", nullable = false,  unique = true)
     private String username;
 
-    @Column(name = "PASSWORD", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "USER_ROLES")
-    @ElementCollection
-    private List<String> roles;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
-    @Column(name = "SHOPPING_CART")
-    @ElementCollection
-    private List<String> products;
-
+    @Column(name = "cart")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_products",
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> cart;
     public User() {}
-
-    public void addRole(String newRole) {
-        this.roles.add(newRole);
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return this.roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toSet());
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String newUsername) {
+        this.username = newUsername;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
+
+    public void addRole(Role newRole) {
+        this.roles.add(newRole);
     }
 }
