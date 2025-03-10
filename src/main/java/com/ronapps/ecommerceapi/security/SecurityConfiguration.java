@@ -3,6 +3,7 @@ package com.ronapps.ecommerceapi.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -32,7 +33,7 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/create", "/login").permitAll()
+                        .requestMatchers( "/create", "/login", "/home").permitAll()
                         .requestMatchers("/user**").hasRole("USER")
                         .requestMatchers("/admin**").hasRole("ADMIN")
                         .anyRequest().authenticated())

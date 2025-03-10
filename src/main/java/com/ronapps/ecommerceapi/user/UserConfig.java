@@ -10,4 +10,9 @@ public class UserConfig {
     UserService userService(UserRepository userRepository) {
         return new UserService(userRepository);
     }
+
+    @Bean
+    MyUserDetailsService myUserDetailsService(UserRepository userRepository) {
+        return new MyUserDetailsService(userRepository);
+    }
 }

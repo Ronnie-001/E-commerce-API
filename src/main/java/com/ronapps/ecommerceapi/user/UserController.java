@@ -13,7 +13,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/home")
     public String greeting() {
         return "client needs to create a user first to purchase products";
     }
