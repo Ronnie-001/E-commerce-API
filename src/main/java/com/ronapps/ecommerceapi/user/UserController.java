@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -19,7 +18,7 @@ public class UserController {
         return "client needs to create a user first to purchase products";
     }
     
-    @PostMapping("/create")
+    @PostMapping("/register")
     public UserDTO createUser(@RequestBody UserDTO userDto) {
         userService.registerNewUser(userDto);
         return userDto;

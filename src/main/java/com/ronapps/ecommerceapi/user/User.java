@@ -39,6 +39,7 @@ public class User implements UserDetails {
                joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> cart;
+
     public User() {}
 
     @Override
@@ -66,3 +67,4 @@ public class User implements UserDetails {
         this.roles.add(newRole);
     }
 }
+
