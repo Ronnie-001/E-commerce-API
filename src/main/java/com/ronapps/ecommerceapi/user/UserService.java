@@ -20,4 +20,12 @@ public class UserService {
         newUser.addRole(role);
         userRepository.save(newUser);
     }
+
+    public void registerNewAdmin(UserDTO userDto) {
+        User newUser = UserMapper.toEntity(userDto);
+        Role role = new Role();
+        role.setRole("ADMIN"); 
+        newUser.addRole(role);
+        userRepository.save(newUser);
+    }
 }

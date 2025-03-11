@@ -1,6 +1,7 @@
 package com.ronapps.ecommerceapi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,22 +19,25 @@ public class UserController {
         return "client needs to create a user first to purchase products";
     }
     
-    @PostMapping("/register")
+    @PostMapping("/register_user")
     public UserDTO createUser(@RequestBody UserDTO userDto) {
         userService.registerNewUser(userDto);
         return userDto;
     }
 
-    @GetMapping("/login")
-    public String userLogin(String username, String password) {
-        // TODO: Search user database to find an entity with the correct user and password
-        // TODO: Also need to authenticate user login
-        return "Login successful.";
+    @PostMapping("/register_admin")
+    public UserDTO createAdmin(@RequestBody UserDTO userDto) {
+        userService.registerNewAdmin(userDto);
+        return userDto;
     }
 
-//    @PreAuthorize("hasRole('ROLE_USER')")
-//    @GetMapping("/basket")
-//    public String addToBasket() {
-//
-//    }
+    @GetMapping("/login")
+    public ResponseEntity<String> login(String username, String password) {
+
+        return ResponseEntity.ok("Login Sucsessfull");
+    }
 }
+
+
+
+
