@@ -1,14 +1,18 @@
 package com.ronapps.ecommerceapi.user;
 
-import jakarta.persistence.*; 
+import jakarta.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ronapps.ecommerceapi.products.Product;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,17 +32,18 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "user_roles",
                joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "cart")
     @ManyToMany(fetch = FetchType.EAGER)
+    @Cascade({CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "user_products",
                joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> cart;
+    private List<Product> cart = new ArrayList<>();
 
     public User() {}
 

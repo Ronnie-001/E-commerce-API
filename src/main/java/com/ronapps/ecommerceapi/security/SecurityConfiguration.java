@@ -1,18 +1,21 @@
 package com.ronapps.ecommerceapi.security;
 
-import java.lang.reflect.Proxy;
-
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.ronapps.ecommerceapi.user.MyUserDetailsService;
@@ -35,9 +38,9 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/register_user", "/register_admin", "/login", "/home").permitAll()
-                        .requestMatchers("/user**").hasRole("USER")
-                        .requestMatchers("/admin**").hasRole("ADMIN")
+                        .requestMatchers("/register_user", "/register_admin", "/login", "/home").permitAll()
+                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());
