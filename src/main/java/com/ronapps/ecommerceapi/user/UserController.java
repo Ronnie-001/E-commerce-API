@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/home")
@@ -33,11 +36,11 @@ public class UserController {
 
     @GetMapping("/login")
     public ResponseEntity<String> login(String username, String password) {
-
-        return ResponseEntity.ok("Login Sucsessfull");
+        User user = userRepository.findByUsername(username);
+        if (user != null) {
+            return ResponseEntity.ok("Login sucsessfull!");
+        } else {
+            return ResponseEntity.ok("User doesn't exist.");
+        }
     }
 }
-
-
-
-
