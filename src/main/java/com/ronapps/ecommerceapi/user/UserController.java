@@ -1,26 +1,31 @@
 package com.ronapps.ecommerceapi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 public class UserController {
 
     private final UserService userService;
-    private final MyUserDetailsService myUserDetailsService;
-    
-    // Use this to persist user login across different endpoints
-    private final SecurityContextRepository securityContextRepository;  
-
+    private final SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+    private final AuthenticationManager authenticationManager;
+    private final SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
 
     @Autowired
-    public UserController(UserService userService, MyUserDetailsService myUserDetailsService, SecurityContextRepository securityContextRepository) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager) {
         this.userService = userService;
-        this.myUserDetailsService = myUserDetailsService;
-        this.securityContextRepository = securityContextRepository;
-
+        this.authenticationManager = authenticationManager;
     }
 
     @GetMapping("/home")
@@ -41,17 +46,33 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(String username, String password) {  
-        if (myUserDetailsService.loadUserByUsername(username) != null &&
-            myUserDetailsService.loadUserByUsername(username).getPassword().equals(password)) {
-            return ResponseEntity.ok("Login sucsessfull!");
-        } else {
-            return ResponseEntity.ok("User doesn't exist.");
-        }
-    }
+    public void login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
+        UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
+        .unauthenticated(loginCredentials.getUsername(), loginCredentials.getPassword());
+        
+        Authentication authentication = authenticationManager.authenticate(token);    
+        SecurityContext context = securityContextHolderStrategy.createEmptyContext();
+        context.setAuthentication(authentication);
+        securityContextHolderStrategy.setContext(context);
+        securityContextRepository.saveContext(context, request, response);
+   }
 
     @GetMapping()
     public String logout() {
         return "This is the logout endpoint";
+    }
+}
+
+class LoginCredentials {
+
+    private String username;
+    private String password;
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
