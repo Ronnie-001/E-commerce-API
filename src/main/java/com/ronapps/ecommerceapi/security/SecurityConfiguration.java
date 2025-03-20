@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.ronapps.ecommerceapi.user.MyUserDetailsService;
@@ -38,10 +37,11 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register_user", "/register_admin", "/login", "/home").permitAll()
+                        .requestMatchers("/register_user", "/register_admin", "/login", "logout_success", "/home").permitAll()
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
+                        .logout((logout) -> logout.logoutSuccessUrl("logout_success"))
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());
         return http.build();

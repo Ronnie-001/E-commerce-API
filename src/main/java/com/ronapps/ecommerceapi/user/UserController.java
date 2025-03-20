@@ -55,12 +55,16 @@ public class UserController {
         context.setAuthentication(authentication);
         securityContextHolderStrategy.setContext(context);
         securityContextRepository.saveContext(context, request, response);
-   }
-
-    @GetMapping()
-    public String logout() {
-        return "This is the logout endpoint";
     }
+
+    @PostMapping("/logout")
+    public void logout() {
+    }
+    
+    @GetMapping("/logout_success")
+    public String logoutSuccess() {
+        return "Logout of user" + "..." + "was successfull!";  
+    } 
 }
 
 class LoginCredentials {
