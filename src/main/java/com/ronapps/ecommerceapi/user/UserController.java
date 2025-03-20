@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
+    public String login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
         UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
         .unauthenticated(loginCredentials.getUsername(), loginCredentials.getPassword());
         
@@ -55,6 +55,8 @@ public class UserController {
         context.setAuthentication(authentication);
         securityContextHolderStrategy.setContext(context);
         securityContextRepository.saveContext(context, request, response);
+
+        return "Login of user" + authentication.getPrincipal().toString() + "was successfull!";
     }
 
     @PostMapping("/logout")
