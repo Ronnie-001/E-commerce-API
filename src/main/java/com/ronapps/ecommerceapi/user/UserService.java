@@ -8,14 +8,16 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public void registerNewUser(UserDTO userDto) {
-        User newUser = UserMapper.toEntity(userDto);
+        User newUser = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         Role role = new Role();
         role.setRole("USER");
         newUser.addRole(role);
@@ -23,7 +25,7 @@ public class UserService {
     }
 
     public void registerNewAdmin(UserDTO userDto) {
-        User newUser = UserMapper.toEntity(userDto);
+        User newUser = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         Role role = new Role();
         role.setRole("ADMIN"); 
         newUser.addRole(role);

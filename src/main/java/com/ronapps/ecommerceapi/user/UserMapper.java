@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class UserMapper {
-
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
     public UserMapper(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public static User toEntity(UserDTO userDTO, BCryptPasswordEncoder bCryptPasswordEncoder) {
+
         if (userDTO == null) {
            return null; 
         }

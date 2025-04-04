@@ -2,6 +2,7 @@ package com.ronapps.ecommerceapi.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -48,13 +49,19 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
         UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
-        .unauthenticated(loginCredentials.getUsername(), loginCredentials.getPassword());
+        .unauthenticated(loginCredentials.getUsername().toString(), loginCredentials.getPassword().toString());
         
-        Authentication authentication = authenticationManager.authenticate(token);    
-        SecurityContext context = securityContextHolderStrategy.createEmptyContext();
-        context.setAuthentication(authentication);
-        securityContextHolderStrategy.setContext(context);
-        securityContextRepository.saveContext(context, request, response);
+        Authentication authentication = authenticationManager.authenticate(token);
+        
+        if (authentication.isAuthenticated()) {
+            SecurityContext context = securityContextHolderStrategy.createEmptyContext();
+            context.setAuthentication(authentication);
+            securityContextHolderStrategy.setContext(context);
+            securityContextRepository.saveContext(context, request, response);
+        } else {
+            throw new BadCredentialsException("The credentials that you entered are not correct!");
+        }
+
 
         return "Login of user" + authentication.getPrincipal().toString() + "was successfull!";
     }
