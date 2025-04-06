@@ -45,34 +45,41 @@ public class UserController {
         userService.registerNewAdmin(userDto);
         return userDto;
     }
+    
+    @GetMapping("/session_test")
+    public String sessionAuthTest(HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth == null) return "No user is logged in";
+
+        return "The user " + auth.getName() + ", session id " + request.getSession().getId(); 
+    }
 
     @PostMapping("/login")
     public String login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
         UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
         .unauthenticated(loginCredentials.getUsername().toString(), loginCredentials.getPassword().toString());
-        
+
         Authentication authentication = authenticationManager.authenticate(token);
-        
+
         if (authentication.isAuthenticated()) {
             SecurityContext context = securityContextHolderStrategy.createEmptyContext();
             context.setAuthentication(authentication);
             securityContextHolderStrategy.setContext(context);
             securityContextRepository.saveContext(context, request, response);
         } else {
-            throw new BadCredentialsException("The credentials that you entered are not correct!");
+            throw new BadCredentialsException("Invalid credentials entered.");
         }
-
-
-        return "Login of user" + authentication.getPrincipal().toString() + "was successfull!";
+        return "Login of user: " + authentication.getName() + " was successfull! " + "session id: " + request.getSession().getId();
     }
 
     @PostMapping("/logout")
     public void logout() {
     }
-    
+
     @GetMapping("/logout_success")
     public String logoutSuccess() {
-        return "Logout of user" + "..." + "was successfull!";  
+        return "Logout was successfull!";  
     } 
 }
 

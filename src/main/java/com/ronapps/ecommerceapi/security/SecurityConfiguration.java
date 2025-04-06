@@ -12,7 +12,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -40,7 +39,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
-                        .logout((logout) -> logout.logoutSuccessUrl("/logout_success"))
+                        .logout((logout) -> logout
+                                            .logoutUrl("/logout")
+                                            .logoutSuccessUrl("/logout_success"))
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());
         return http.build();
