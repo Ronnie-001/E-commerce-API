@@ -22,8 +22,8 @@ import com.ronapps.ecommerceapi.user.MyUserDetailsService;
 public class SecurityConfiguration {
 
     @Autowired
-    private MyUserDetailsService myUserDetailsService; 
-        
+    private MyUserDetailsService myUserDetailsService;
+
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

@@ -19,7 +19,7 @@ public class UserService {
     public void registerNewUser(UserDTO userDto) {
         User newUser = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         Role role = new Role();
-        role.setRole("USER");
+        role.setRole("ROLE_USER");
         newUser.addRole(role);
         userRepository.save(newUser);
     }
@@ -27,7 +27,7 @@ public class UserService {
     public void registerNewAdmin(UserDTO userDto) {
         User newAdmin= UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         Role role = new Role();
-        role.setRole("ADMIN"); 
+        role.setRole("ROLE_ADMIN"); 
         newAdmin.addRole(role);
         userRepository.save(newAdmin);
     }

@@ -11,7 +11,7 @@ public class UserMapper {
     public UserMapper(BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
+    
     public static User toEntity(UserDTO userDTO, BCryptPasswordEncoder bCryptPasswordEncoder) {
 
         if (userDTO == null) {

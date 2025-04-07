@@ -51,8 +51,12 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth == null) return "No user is logged in";
+        return "The user: " + auth.getName() + ", session id: " + request.getSession().getId(); 
+    }
 
-        return "The user " + auth.getName() + ", session id " + request.getSession().getId(); 
+    @GetMapping("/user/test")
+    public String userAuthTest() {
+        return "working for logged in user";
     }
 
     @PostMapping("/login")

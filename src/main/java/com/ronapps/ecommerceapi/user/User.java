@@ -48,21 +48,8 @@ public class User implements UserDetails {
 
     public User() {}
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toSet());
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
     public void setUsername(String newUsername) {
         this.username = newUsername;
-    }
-
-    public String getPassword() {
-        return this.password;
     }
 
     public void setPassword(String newPassword) {
@@ -71,6 +58,45 @@ public class User implements UserDetails {
 
     public void addRole(Role newRole) {
         this.roles.add(newRole);
+    }
+
+    public Set<Role> getRoles() {
+        return this.roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream().map(role -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toSet());
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+    
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
 
