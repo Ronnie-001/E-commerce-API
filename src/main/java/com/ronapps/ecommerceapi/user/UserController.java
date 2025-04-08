@@ -46,19 +46,6 @@ public class UserController {
         return userDto;
     }
     
-    @GetMapping("/session_test")
-    public String sessionAuthTest(HttpServletRequest request) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        if (auth == null) return "No user is logged in";
-        return "The user: " + auth.getName() + ", session id: " + request.getSession().getId(); 
-    }
-
-    @GetMapping("/user/test")
-    public String userAuthTest() {
-        return "working for logged in user";
-    }
-
     @PostMapping("/login")
     public String login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
         UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
