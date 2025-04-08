@@ -16,8 +16,25 @@ public class Product {
     private Long id;
 
     @Column(name = "product_name")
-    private String name;
+    private String productName;
 
     @Column(name = "product_price")
-    private double price;
+    private double productPrice;
+
+    
+    public void setProductName(String newName) {
+        this.productName = newName;
+    }
+
+    public String getProductName() {
+        return this.productName;
+    }
+
+    public void setPrice(double newPrice) {
+        this.productPrice = newPrice;
+    }
+
+    public double getProductPrice() {
+        return this.productPrice;
+    }
 }

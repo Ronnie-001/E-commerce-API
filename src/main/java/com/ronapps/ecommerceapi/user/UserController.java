@@ -59,16 +59,11 @@ public class UserController {
             securityContextHolderStrategy.setContext(context);
             securityContextRepository.saveContext(context, request, response);
         } else {
-            throw new BadCredentialsException("Invalid credentials entered.");
+            throw new BadCredentialsException("Invalid credintials entered.");
         }
         return "Login of user: " + authentication.getName() + " was successfull! " + "session id: " + request.getSession().getId();
     }
 
-//     @PostMapping("/logout")
-//     public void logout() {
-//     }
-
-    
     @GetMapping("/user/test")
     public String userRBAC() {
         return "User only endpoint";
