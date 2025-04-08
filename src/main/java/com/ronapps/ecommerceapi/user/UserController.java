@@ -64,8 +64,14 @@ public class UserController {
         return "Login of user: " + authentication.getName() + " was successfull! " + "session id: " + request.getSession().getId();
     }
 
-    @PostMapping("/logout")
-    public void logout() {
+//     @PostMapping("/logout")
+//     public void logout() {
+//     }
+
+    
+    @GetMapping("/user/test")
+    public String userRBAC() {
+        return "User only endpoint";
     }
 
     @GetMapping("/logout_success")

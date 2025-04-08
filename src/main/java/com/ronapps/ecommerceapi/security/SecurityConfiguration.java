@@ -40,8 +40,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                         .logout((logout) -> logout
-                                            .logoutUrl("/logout")
-                                            .logoutSuccessUrl("/logout_success"))
+                        .logoutSuccessUrl("/logout_success").permitAll())
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());
         return http.build();
