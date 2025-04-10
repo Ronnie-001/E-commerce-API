@@ -16,4 +16,17 @@ public class ProductService {
     public void addNewProduct(Product productToAdd) {
         productRepository.save(productToAdd);        
     }
+
+    public void deleteProduct(Product productToDelete) {
+        productRepository.delete(productToDelete);
+    }
+
+    public void updateProdcutName(String newName) {
+        Product product = productRepository.findByProductName(productToUpdate.getProductName());
+        product.setProductName(newName);
+    }
+
+    public void getProduct() {
+        
+    }
 }
