@@ -17,16 +17,23 @@ public class ProductService {
         productRepository.save(productToAdd);        
     }
 
-    public void deleteProduct(Product productToDelete) {
-        productRepository.delete(productToDelete);
+    public void deleteProduct(String productToDelete) {
+        Product product = productRepository.findByProductName(productToDelete);
+        productRepository.delete(product);
     }
 
-    public void updateProdcutName(String newName) {
-        Product product = productRepository.findByProductName(productToUpdate.getProductName());
+    public void updateProductName(String productToUpdate, String newName) {
+        Product product = productRepository.findByProductName(productToUpdate);
         product.setProductName(newName);
     }
 
-    public void getProduct() {
-        
+    public void updateProductPrice(String productToUpdate, double newPrice) {
+        Product product = productRepository.findByProductName(productToUpdate);
+        product.setPrice(newPrice);
+    }
+
+    public Product getProduct(String productName) {
+        Product product = productRepository.findByProductName(productName);        
+        return product;
     }
 }

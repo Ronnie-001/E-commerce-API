@@ -34,13 +34,13 @@ public class UserController {
         return "User needs to create a user first to purchase products";
     }
     
-    @PostMapping("/register_user")
+    @PostMapping("/register-user")
     public UserDTO createUser(@RequestBody UserDTO userDto) {
         userService.registerNewUser(userDto);
         return userDto;
     }
 
-    @PostMapping("/register_admin")
+    @PostMapping("/register-admin")
     public UserDTO createAdmin(@RequestBody UserDTO userDto) {
         userService.registerNewAdmin(userDto);
         return userDto;
@@ -69,7 +69,7 @@ public class UserController {
         return "User only endpoint";
     }
 
-    @GetMapping("/logout_success")
+    @GetMapping("/logout-success")
     public String logoutSuccess() {
         return "Logout was successfull!";  
     } 

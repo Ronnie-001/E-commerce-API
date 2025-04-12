@@ -21,6 +21,9 @@ public class Product {
     @Column(name = "product_price", nullable = false)
     private double productPrice;
 
+    @Column(name = "category", nullable = false)
+    private String category;
+
     public void setProductName(String newName) {
         this.productName = newName;
     }
@@ -35,5 +38,13 @@ public class Product {
 
     public double getProductPrice() {
         return this.productPrice;
+    }
+ 
+    public void setCategory(String newCategory) {
+        this.category = newCategory;
+    }
+
+    public String getCategory() {
+        return this.category;
     }
 }

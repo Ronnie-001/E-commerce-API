@@ -34,12 +34,12 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register_user", "/register_admin", "/login", "/logout_success", "/home").permitAll()
+                        .requestMatchers("/register-user", "/register-admin", "/login", "/logout-success", "/home").permitAll()
                         .requestMatchers("/user/**").hasRole("USER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                         .logout((logout) -> logout
-                        .logoutSuccessUrl("/logout_success").permitAll())
+                        .logoutSuccessUrl("/logout-success").permitAll())
                         .httpBasic(Customizer.withDefaults())
                         .csrf(crsf -> crsf.disable());
         return http.build();

@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public void registerNewAdmin(UserDTO userDto) {
-        User newAdmin= UserMapper.toEntity(userDto, bCryptPasswordEncoder);
+        User newAdmin = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         Role role = new Role();
         role.setRole("ADMIN"); 
         newAdmin.addRole(role);
