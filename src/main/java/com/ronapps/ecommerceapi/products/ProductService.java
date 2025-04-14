@@ -25,11 +25,13 @@ public class ProductService {
     public void updateProductName(String productToUpdate, String newName) {
         Product product = productRepository.findByProductName(productToUpdate);
         product.setProductName(newName);
+        productRepository.save(product);
     }
 
     public void updateProductPrice(String productToUpdate, double newPrice) {
         Product product = productRepository.findByProductName(productToUpdate);
         product.setPrice(newPrice);
+        productRepository.save(product);
     }
 
     public Product getProduct(String productName) {

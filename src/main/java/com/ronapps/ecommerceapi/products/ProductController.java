@@ -76,6 +76,5 @@ class ProductPriceUpdateDetails {
     public double getNewPrice() {
         return this.newPrice; 
     }
-
 }
 
