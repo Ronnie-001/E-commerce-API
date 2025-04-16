@@ -23,7 +23,7 @@ public class Product {
 
     @Column(name = "category", nullable = false)
     private String category;
-    
+
     public void setProductName(String newName) {
         this.productName = newName;
     }

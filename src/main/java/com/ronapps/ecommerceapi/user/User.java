@@ -68,6 +68,14 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
        return this.roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName())).collect(Collectors.toSet());
     }
+    
+    public void addToCart(Product product) {
+        this.cart.add(product);
+    } 
+
+    public void removeFromCart(Product product) {
+        this.cart.remove(product);
+    } 
 
     @Override
     public String getPassword() {
