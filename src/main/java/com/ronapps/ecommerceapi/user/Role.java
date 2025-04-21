@@ -9,7 +9,8 @@ import jakarta.persistence.Id;
 @Entity
 @Table(schema = "users")
 public class Role {
-
+    
+    //TODO: Fix this, role id in PostgreSQL database should not increment for each user.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

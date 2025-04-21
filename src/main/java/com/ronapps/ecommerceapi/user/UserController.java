@@ -61,7 +61,7 @@ public class UserController {
         } else {
             throw new BadCredentialsException("Invalid credintials entered.");
         }
-        return "Login of user: " + authentication.getName() + " was successfull! " + "session id: " + request.getSession().getId();
+        return "Login of user: " + authentication.getName() + " was successfull! " + " session id: " + request.getSession().getId();
     }
 
     @GetMapping("/user/test")

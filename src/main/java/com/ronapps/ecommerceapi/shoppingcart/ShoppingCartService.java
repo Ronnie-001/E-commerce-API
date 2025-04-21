@@ -8,7 +8,7 @@ import com.ronapps.ecommerceapi.user.User;
 import com.ronapps.ecommerceapi.user.UserRepository;
 
 public class ShoppingCartService {
-    
+
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
 
@@ -22,11 +22,13 @@ public class ShoppingCartService {
         User user = userRepository.findByUsername(username);
         Product productToAdd = productRepository.findById(idOfItem).get();
         user.addToCart(productToAdd);
+        userRepository.save(user);
     }
 
     public void removeFromUserCart(String username, long idOfItem) {
         User user = userRepository.findByUsername(username);
         Product productToRemove = productRepository.findById(idOfItem).get();
         user.removeFromCart(productToRemove);
+        userRepository.save(user);
     }
 }

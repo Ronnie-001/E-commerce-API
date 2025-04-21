@@ -12,5 +12,5 @@ public class ShoppingCartConfig {
     @Bean
     ShoppingCartService shoppingCartService(UserRepository userRepository, ProductRepository productRepository) {
         return new ShoppingCartService(userRepository, productRepository);
-    }   
+    }
 }

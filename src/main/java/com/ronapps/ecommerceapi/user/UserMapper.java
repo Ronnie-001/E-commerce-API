@@ -13,7 +13,6 @@ public class UserMapper {
     }
 
     public static User toEntity(UserDTO userDTO, BCryptPasswordEncoder bCryptPasswordEncoder) {
-
         if (userDTO == null) {
            return null; 
         }

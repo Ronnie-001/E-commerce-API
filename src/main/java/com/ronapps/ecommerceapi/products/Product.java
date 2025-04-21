@@ -5,12 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(schema = "storefront")
 public class Product {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +25,10 @@ public class Product {
 
     @Column(name = "category", nullable = false)
     private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id", insertable = false, updatable = false)
+    private Cart userCart;
 
     public void setProductName(String newName) {
         this.productName = newName;

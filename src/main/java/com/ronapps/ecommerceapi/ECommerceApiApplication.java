@@ -3,7 +3,7 @@ package com.ronapps.ecommerceapi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//TODO: Adding prodcuts to the shoppin cart
+//TODO: Fix the Product entity
 @SpringBootApplication
 public class ECommerceApiApplication {
 

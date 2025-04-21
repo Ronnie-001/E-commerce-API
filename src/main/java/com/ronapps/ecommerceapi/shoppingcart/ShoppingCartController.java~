@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController 
 public class ShoppingCartController {
 
+    //Get the currently authenticated user
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
     private final ShoppingCartService shoppingCartService;
- 
+    
     @Autowired
     public ShoppingCartController(ShoppingCartService shoppingCartService) {
         this.shoppingCartService = shoppingCartService;
@@ -20,16 +23,12 @@ public class ShoppingCartController {
 
     @PostMapping("/user/cart/add-to-cart/{id}")
     public String addToUserCart(@PathVariable long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         shoppingCartService.addToUserCart(authentication.getName(), id); 
         return "Item added to cart";
     }
     
     @DeleteMapping("/user/cart/remove-from-cart/{id}")
     public String deleteFromUserCart(@PathVariable long id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         shoppingCartService.removeFromUserCart(authentication.getName(), id);
         return "Item removed from cart";
     }

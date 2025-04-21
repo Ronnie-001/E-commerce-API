@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ronapps.ecommerceapi.products.Product;
+import com.ronapps.ecommerceapi.products.Cart;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,13 +39,12 @@ public class User implements UserDetails {
                joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @Cascade({CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(name = "user_products",
-               joinColumns = @JoinColumn(name = "user_id"),
-               inverseJoinColumns = @JoinColumn(name = "product_id"))
+    
+    @OneToMany
     private List<Product> cart = new ArrayList<>();
+
+    @OneToOne
+    private Cart userCart;
 
     public User() {}
 
