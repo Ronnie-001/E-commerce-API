@@ -1,5 +1,7 @@
 package com.ronapps.ecommerceapi.products;
 
+import com.ronapps.ecommerceapi.shoppingcart.Cart;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,8 +29,8 @@ public class Product {
     private String category;
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", insertable = false, updatable = false)
-    private Cart userCart;
+    @JoinColumn(name = "cart_id")
+    private Cart cart;  //Owning side between the product and the cart.
 
     public void setProductName(String newName) {
         this.productName = newName;

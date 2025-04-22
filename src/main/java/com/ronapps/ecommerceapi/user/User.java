@@ -10,13 +10,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ronapps.ecommerceapi.products.Product;
-import com.ronapps.ecommerceapi.products.Cart;
+import com.ronapps.ecommerceapi.shoppingcart.Cart;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
@@ -40,11 +38,10 @@ public class User implements UserDetails {
                inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
     
-    @OneToMany
-    private List<Product> cart = new ArrayList<>();
-
     @OneToOne
-    private Cart userCart;
+    @Cascade({CascadeType.ALL})
+    @JoinColumn(name = "cart_id")
+    private Cart cart = null; 
 
     public User() {}
 
@@ -69,12 +66,20 @@ public class User implements UserDetails {
        return this.roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName())).collect(Collectors.toSet());
     }
     
+    public void setCart(Cart newCart) {
+        this.cart = newCart; 
+    }
+
+    public Cart getCart() {
+       return this.cart; 
+    }
+
     public void addToCart(Product product) {
-        this.cart.add(product);
+        this.cart.addProductToCart(product);
     } 
 
     public void removeFromCart(Product product) {
-        this.cart.remove(product);
+        this.cart.removeProductFromCart(product);
     } 
 
     @Override

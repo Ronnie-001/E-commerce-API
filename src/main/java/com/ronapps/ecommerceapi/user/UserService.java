@@ -1,5 +1,7 @@
 package com.ronapps.ecommerceapi.user;
 
+import com.ronapps.ecommerceapi.shoppingcart.Cart;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,10 @@ public class UserService {
     public void registerNewUser(UserDTO userDto) {
         User newUser = UserMapper.toEntity(userDto, bCryptPasswordEncoder);
         Role role = new Role();
+        Cart cart = new Cart();
         role.setRole("USER");
         newUser.addRole(role);
+        newUser.setCart(cart);
         userRepository.save(newUser);
     }
 
