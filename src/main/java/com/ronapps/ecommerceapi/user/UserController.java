@@ -34,19 +34,19 @@ public class UserController {
         return "User needs to create a user first to purchase products";
     }
     
-    @PostMapping("/register-user")
+    @PostMapping("/api/v1/register-user")
     public UserDTO createUser(@RequestBody UserDTO userDto) {
         userService.registerNewUser(userDto);
         return userDto;
     }
 
-    @PostMapping("/register-admin")
+    @PostMapping("/api/v1/register-admin")
     public UserDTO createAdmin(@RequestBody UserDTO userDto) {
         userService.registerNewAdmin(userDto);
         return userDto;
     }
     
-    @PostMapping("/login")
+    @PostMapping("/api/v1/login")
     public String login(@RequestBody LoginCredentials loginCredentials, HttpServletRequest request, HttpServletResponse response) {  
         UsernamePasswordAuthenticationToken token = UsernamePasswordAuthenticationToken
         .unauthenticated(loginCredentials.getUsername().toString(), loginCredentials.getPassword().toString());
@@ -69,7 +69,7 @@ public class UserController {
         return "User only endpoint";
     }
 
-    @GetMapping("/logout-success")
+    @GetMapping("/api/v1/logout-success")
     public String logoutSuccess() {
         return "Logout was successfull!";  
     } 

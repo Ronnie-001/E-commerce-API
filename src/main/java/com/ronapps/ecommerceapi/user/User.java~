@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Entity
 @Table(schema = "users")
 public class User implements UserDetails {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,9 +30,7 @@ public class User implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
-    
-    // FIXME: Only 2 roles should currently be present within DB.
-    // fix this @ManyToMany relationship
+
     @ManyToMany(fetch = FetchType.EAGER)
     @Cascade({CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(name = "user_roles",

@@ -18,7 +18,7 @@ public class ShoppingCartController {
         this.shoppingCartService = shoppingCartService;
     }
 
-    @PostMapping("/user/cart/add-to-cart/{id}")
+    @PostMapping("/api/v1/user/cart/add-to-cart/{id}")
     public String addToUserCart(@PathVariable long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -26,7 +26,7 @@ public class ShoppingCartController {
         return "Item added to cart";
     }
     
-    @DeleteMapping("/user/cart/remove-from-cart/{id}")
+    @DeleteMapping("/api/v1/user/cart/remove-from-cart/{id}")
     public String deleteFromUserCart(@PathVariable long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
